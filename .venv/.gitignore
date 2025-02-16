@@ -1,0 +1,19 @@
+# __pycache__ Ordner (Python Cache-Dateien)
+__pycache__/
+*.pyc
+
+# Virtuelle Umgebung (falls du eine nutzt)
+.venv/
+env/
+venv/
+
+# Lokale Konfigurationsdateien
+*.log
+*.sqlite3
+
+# Sensible Umgebungsvariablen (falls du `dotenv` nutzt)
+.env
+
+# MacOS & PyCharm spezifische Dateien
+.DS_Store
+.idea/
