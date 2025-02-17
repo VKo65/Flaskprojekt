@@ -17,14 +17,19 @@
             <p><strong>By:</strong> {{ post.author }}</p>
             <p>{{ post.content }}</p>
 
+                <!-- 🔹 Like-Button -->
+            <form action="{{ url_for('like', post_id=post['id']) }}" method="post" style="display: inline;">
+                <button type="submit">👍 Like ({{ post.likes }})</button>
+            </form>
+
             <!-- New Update-Button -->
             <a href="{{ url_for('update', post_id=post.id) }}">Update</a>
 
 
             <!-- New Delete-Button -->
-        <form action="{{ url_for('delete', post_id=post.id) }}" method="post">
-            <button type="submit">❌ Delete</button>
-        </form>
+            <form action="{{ url_for('delete', post_id=post.id) }}" method="post">
+                <button type="submit">❌ Delete</button>
+            </form>
 
         </div>
     {% endfor %}

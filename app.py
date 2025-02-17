@@ -17,12 +17,12 @@ def index():
     return render_template("index.html", posts=blog_posts)
 
 
-# 📌 Funktion zum Speichern der Blog-Posts
 def save_blog_posts(posts):
+    """Function to save Blog-Post"""
     with open("blog_posts.json", "w") as file:
         json.dump(posts, file, indent=4)
 
-# 📌 Route für "/add"
+
 @app.route('/add', methods=['GET', 'POST'])
 def add():
     """First action is the return of the add.html.
@@ -40,13 +40,10 @@ def add():
         if not author or not title or not content:
             return "❌ Fehler: Alle Felder müssen ausgefüllt werden!", 400
 
-        # Lade bestehende Blog-Posts
         blog_posts = load_blog_posts()
 
-        # Generiere eine neue eindeutige ID
         new_id = max([post["id"] for post in blog_posts], default=0) + 1
 
-        # Füge den neuen Post zur Liste hinzu
         new_post = {
             "id": new_id,
             "author": author,
@@ -55,50 +52,64 @@ def add():
         }
         blog_posts.append(new_post)
 
-        # Speichere die aktualisierte Liste
         save_blog_posts(blog_posts)
 
-        # Weiterleitung zur Startseite
         return redirect(url_for('index'))
 
     return render_template('add.html')
 
 @app.route('/delete/<int:post_id>', methods=['POST'])
 def delete(post_id):
-    # Blog-Posts aus JSON laden
+    """Load blog_posts, delete it and save it again"""
     blog_posts = load_blog_posts()
 
-    # Entferne den Post mit der passenden ID
     blog_posts = [post for post in blog_posts if post["id"] != post_id]
 
-    # Aktualisierte Liste speichern
     save_blog_posts(blog_posts)
 
-    # Zurück zur Startseite
     return redirect(url_for('index'))
 
 
 @app.route('/update/<int:post_id>', methods=['GET', 'POST'])
 def update(post_id):
-    # Blog-Posts aus JSON laden
+    """Load blog_posts, search for the post id, edit new values"""
     blog_posts = load_blog_posts()
 
-    # Den Blog-Post mit der passenden ID finden
     post = next((p for p in blog_posts if p["id"] == post_id), None)
 
     if not post:
-        return "❌ Post not found", 404  # Falls der Post nicht existiert
+        return "❌ Post not found", 404
 
     if request.method == 'POST':
-        # Neue Werte aus dem Formular holen
-        post["author"] = request.form.get("author")
-        post["title"] = request.form.get("title")
-        post["content"] = request.form.get("content")
+        if request.form.get("author"):
+            post["author"] = request.form.get("author")
+        if request.form.get("title"):
+            post["title"] = request.form.get("title")
+        if request.form.get("content"):
+            post["content"] = request.form.get("content")
 
-        # Blog-Posts aktualisieren & speichern
         save_blog_posts(blog_posts)
+        return redirect(url_for('index'))
+    return render_template('update.html', post=post)
 
-        return redirect(url_for('index'))  # Zurück zur Startseite
+@app.route('/like/<int:post_id>', methods=['POST'])
+def like(post_id):
+    """New function, to set a like button"""
+    blog_posts = load_blog_posts()
+
+    post = next((p for p in blog_posts if p["id"] == post_id), None)
+
+    if not post:
+        return "❌ Post not found", 404
+
+    if "likes" not in post:
+        post["likes"] = 0
+    post["likes"] += 1
+
+    save_blog_posts(blog_posts)
+
+    return redirect(url_for('index'))
+
 
     return render_template('update.html', post=post)  # Formular mit alten Werten anzeigen
 

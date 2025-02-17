@@ -3,24 +3,21 @@
         "id": 1,
         "author": "John Doe",
         "title": "First Post",
-        "content": "This is my first post. With a first update. Done 17.02.24 07:47"
+        "content": "This is my first post. With a first update. Done 17.02.24 07:47",
+        "likes": 1
     },
     {
         "id": 2,
         "author": "Jane Doe",
-        "title": "Second Post",
-        "content": "This is another post."
+        "title": "Third Post",
+        "content": "This is another post.\r\nUpdated 17.02.24 10:41",
+        "likes": 2
     },
     {
         "id": 3,
         "author": "Robin Hood",
         "title": "Archery for beginner",
-        "content": "Learn how to use a long bow."
-    },
-    {
-        "id": 4,
-        "author": "Mister X",
-        "title": "The mystery of html",
-        "content": "Check of function on 17.02.24"
+        "content": "Learn how to use a long bow.\r\nLast Update to check css. 17.02.24 10:45",
+        "likes": 1
     }
 ]
