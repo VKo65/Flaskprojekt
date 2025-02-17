@@ -115,7 +115,7 @@ def like(post_id):
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=True, host="0.0.0.0")
     """Wichtig! Das ist die Funktion, die den internen Server startet.
     debug=True bedeutet, dass Flask im Debug-Modus läuft 
     (automatischer Neustart bei Code-Änderungen)."""
