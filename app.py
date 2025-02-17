@@ -78,6 +78,31 @@ def delete(post_id):
     return redirect(url_for('index'))
 
 
+@app.route('/update/<int:post_id>', methods=['GET', 'POST'])
+def update(post_id):
+    # Blog-Posts aus JSON laden
+    blog_posts = load_blog_posts()
+
+    # Den Blog-Post mit der passenden ID finden
+    post = next((p for p in blog_posts if p["id"] == post_id), None)
+
+    if not post:
+        return "❌ Post not found", 404  # Falls der Post nicht existiert
+
+    if request.method == 'POST':
+        # Neue Werte aus dem Formular holen
+        post["author"] = request.form.get("author")
+        post["title"] = request.form.get("title")
+        post["content"] = request.form.get("content")
+
+        # Blog-Posts aktualisieren & speichern
+        save_blog_posts(blog_posts)
+
+        return redirect(url_for('index'))  # Zurück zur Startseite
+
+    return render_template('update.html', post=post)  # Formular mit alten Werten anzeigen
+
+
 if __name__ == "__main__":
     app.run(debug=True)
     """Wichtig! Das ist die Funktion, die den internen Server startet.

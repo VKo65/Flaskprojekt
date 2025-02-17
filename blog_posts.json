@@ -3,7 +3,7 @@
         "id": 1,
         "author": "John Doe",
         "title": "First Post",
-        "content": "This is my first post."
+        "content": "This is my first post. With a first update. Done 17.02.24 07:47"
     },
     {
         "id": 2,
@@ -16,5 +16,11 @@
         "author": "Robin Hood",
         "title": "Archery for beginner",
         "content": "Learn how to use a long bow."
+    },
+    {
+        "id": 4,
+        "author": "Mister X",
+        "title": "The mystery of html",
+        "content": "Check of function on 17.02.24"
     }
 ]

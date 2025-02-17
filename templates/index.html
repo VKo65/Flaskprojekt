@@ -17,6 +17,10 @@
             <p><strong>By:</strong> {{ post.author }}</p>
             <p>{{ post.content }}</p>
 
+            <!-- New Update-Button -->
+            <a href="{{ url_for('update', post_id=post.id) }}">Update</a>
+
+
             <!-- New Delete-Button -->
         <form action="{{ url_for('delete', post_id=post.id) }}" method="post">
             <button type="submit">❌ Delete</button>
